@@ -1,15 +1,17 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
+  <div>
+    <ul>
+        <li v-for='(cat, index) in cats' :key="index">{{cat.name}}</li>
+    </ul>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'TestyComponent',
   props: {
-    msg: String
-  }
+    cats: Array
+  },
 }
 </script>
 
