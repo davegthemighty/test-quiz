@@ -1,10 +1,8 @@
 <template>
   <div>
-    <b-nav>
-      <b-nav-item active>Active</b-nav-item>
-      <b-nav-item>Link</b-nav-item>
-      <b-nav-item>Another Link</b-nav-item>
-      <b-nav-item disabled>Disabled</b-nav-item>
+    <b-nav tabs>
+      <b-nav-item disabled>Test Quiz</b-nav-item>
+      <b-nav-item disabled>Counter: 4/10</b-nav-item>
     </b-nav>
   </div>
 </template>

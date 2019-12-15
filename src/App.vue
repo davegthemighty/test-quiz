@@ -1,19 +1,19 @@
 <template>
   <div id="app">
     <Header/>
-    <QuestionBox/>
+    <QuestionPanel/>
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue'
-import QuestionBox from './components/QuestionBox.vue'
+import QuestionPanel from './components/QuestionPanel.vue'
 
 export default {
   name: 'app',
   components: {
     Header,
-    QuestionBox
+    QuestionPanel
   },
 }
 
