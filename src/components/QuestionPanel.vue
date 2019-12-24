@@ -3,7 +3,11 @@
     <b-container class="bv-example-row">
       <b-row>
         <b-col sm="6" offset="3">
-          <QuestionBox :question="questions[0]"/>
+          <QuestionBox
+              v-if="question"
+              :currentQuestion="question"
+              :nextQuestion="next"
+          />
         </b-col>
       </b-row>
     </b-container>
@@ -19,9 +23,9 @@ export default {
   components: {
     QuestionBox
   },
-  props: [
-    'questions'
-  ],
+  props: {
+    question: Object,
+    next: Function
+  },
 }
-
 </script>

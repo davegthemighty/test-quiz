@@ -1,7 +1,11 @@
 <template>
   <div id="app">
     <Header/>
-    <QuestionPanel :questions="questions"/>
+    <QuestionPanel
+        :v-if="questions.length"
+        :question="questions[questionIndex]"
+        :next="next"
+    />
   </div>
 </template>
 
@@ -17,7 +21,13 @@ export default {
   },
   data() {
     return {
-      questions: []
+      questions: [],
+      questionIndex: 0,
+    }
+  },
+  methods: {
+    next() {
+      this.questionIndex++
     }
   },
   mounted: function() {
