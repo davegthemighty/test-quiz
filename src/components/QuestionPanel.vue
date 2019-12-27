@@ -6,7 +6,9 @@
           <QuestionBox
               v-if="question"
               :currentQuestion="question"
+              :currentResult="result"
               :nextQuestion="next"
+              :submitAnswer="submitAnswer"
           />
         </b-col>
       </b-row>
@@ -25,7 +27,9 @@ export default {
   },
   props: {
     question: Object,
-    next: Function
+    result: Object,
+    next: Function,
+    submitAnswer: Function,
   },
 }
 </script>

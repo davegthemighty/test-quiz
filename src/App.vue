@@ -4,7 +4,9 @@
     <QuestionPanel
         :v-if="questions.length"
         :question="questions[questionIndex]"
+        :result="results[questionIndex]"
         :next="next"
+        :submitAnswer="submitAnswer"
     />
   </div>
 </template>
@@ -23,11 +25,22 @@ export default {
     return {
       questions: [],
       questionIndex: 0,
+      results: Array(10).fill(null).map(() => (
+      {
+        selectedAnswer: "",
+        submitted: false,
+        correct: false,
+      })),
     }
   },
   methods: {
     next() {
       this.questionIndex++
+    },
+    submitAnswer() {
+        const result = this.results[this.questionIndex]
+        result.submitted = true
+        result.correct = result.selectedAnswer == this.questions[this.questionIndex].correct_answer
     }
   },
   mounted: function() {

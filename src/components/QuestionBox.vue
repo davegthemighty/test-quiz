@@ -12,8 +12,9 @@
         <b-list-group v-for="(answer, index) in answerList" v-bind:key="index">
           <b-list-group-item
               button
-              v-bind:class="{ active: selectedAnswer ==  answer}"
-              @click="selectedAnswer = answer"
+              v-bind:active="!currentResult.submitted && currentResult.selectedAnswer == answer"
+              v-bind:variant="listItemVariant(answer)"
+              @click="currentResult.selectedAnswer = answer"
           >
               {{ answer }}
           </b-list-group-item>
@@ -21,8 +22,8 @@
       </div>
 
       <div class="mt-2">
-        <b-button variant="primary" v-bind:class="{ disabled: selectedAnswer ==  ''}" href="#" class="mr-1">Submit</b-button>
-        <b-button variant="secondary" v-bind:class="{ disabled: selectedAnswer ==  ''}" href="#" @click="nextQuestion">Next</b-button>
+        <b-button variant="primary" v-bind:class="{ disabled: currentResult.selectedAnswer ==  ''}" href="#" @click="submitAnswer" class="mr-1">Submit</b-button>
+        <b-button variant="secondary" v-bind:class="{ disabled: currentResult.submitted ==  false}" href="#" @click="nextQuestion">Next</b-button>
       </div>
 
     </b-jumbotron>
@@ -34,22 +35,30 @@
 import shuffle from 'lodash.shuffle'
 
 export default {
-  data() {
-    return {
-      selectedAnswer: "",
-    }
-  },
   props: {
     currentQuestion: Object,
-    nextQuestion: Function
+    currentResult: Object,
+    nextQuestion: Function,
+    submitAnswer: Function
+  },
+  methods: {
+    listItemVariant(answer) {
+        if (this.currentResult.submitted == false) {
+          return ''
+        }
+        if (this.currentResult.selectedAnswer == answer && !this.currentResult.correct) {
+          return 'danger'
+        }
+        if (answer == this.currentQuestion.correct_answer) {
+          return 'success'
+        }
+        return ''
+    },
   },
   computed: {
     answerList() {
       const answers = [].concat(this.currentQuestion.incorrect_answers, [this.currentQuestion.correct_answer])
       return shuffle(answers)
-    },
-    isCorrect() {
-      return this.currentQuestion.correct_answer === this.selectedAnswer
     },
   },
 }
