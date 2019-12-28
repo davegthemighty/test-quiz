@@ -1,12 +1,16 @@
 <template>
   <div id="app">
-    <Header/>
+    <Header
+      :questionIndex="questionIndex"
+    />
     <QuestionPanel
         :v-if="questions.length"
         :question="questions[questionIndex]"
         :result="results[questionIndex]"
         :next="next"
         :submitAnswer="submitAnswer"
+        :questionIndex="questionIndex"
+        :calculateResults="calculateResults"
     />
   </div>
 </template>
@@ -41,7 +45,10 @@ export default {
         const result = this.results[this.questionIndex]
         result.submitted = true
         result.correct = result.selectedAnswer == this.questions[this.questionIndex].correct_answer
-    }
+    },
+    calculateResults() {
+        return `You scored ${this.results.filter(result => result.correct == true).length} out of 10.`
+    },
   },
   mounted: function() {
     fetch('https://opentdb.com/api.php?amount=10&category=27&type=multiple', {
