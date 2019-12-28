@@ -14,6 +14,7 @@
               button
               v-bind:active="!currentResult.submitted && currentResult.selectedAnswer == answer"
               v-bind:variant="listItemVariant(answer)"
+              @click.stop.prevent="currentResult.submitted"
               @click="currentResult.selectedAnswer = answer"
           >
               {{ answer }}
@@ -22,7 +23,7 @@
       </div>
 
       <div class="mt-2">
-        <b-button variant="primary" v-bind:class="{ disabled: currentResult.selectedAnswer ==  ''}" href="#" @click="submitAnswer" class="mr-1">Submit</b-button>
+        <b-button variant="primary" v-bind:class="{ disabled: currentResult.selectedAnswer ==  '' || currentResult.submitted}" href="#" @click="submitAnswer"  class="mr-1">Submit</b-button>
         <b-button variant="secondary" v-bind:class="{ disabled: currentResult.submitted ==  false}" href="#" @click="nextQuestion">Next</b-button>
       </div>
 
